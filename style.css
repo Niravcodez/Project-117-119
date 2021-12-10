@@ -1,0 +1,19 @@
+body
+{
+    background-color: greenyellow;
+    font-size: 24px;
+}
+#score
+{
+    float: left;
+    font-size: 24px;
+}
+#timer
+{
+    float: right;
+    font-size: 24px;
+}
+#toBeDrawn
+{
+    color: red;
+}
