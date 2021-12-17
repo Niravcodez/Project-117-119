@@ -3,6 +3,7 @@ function setup()
     canvas = createCanvas(280, 280);
     canvas.center();
     background("white");
+    canvas.mouseReleased(classifyCanvas);
 }
 quick_draw_data_set=["aircraft carrier","airplane","alarm clock","ambulance","angel","animal migration","ant","anvil","apple","arm","asparagus",
 "axe","backpack","banana","bandage","barn","baseball","baseball bat","basket","basketball","bat","bathtub","beach","bear","beard","bed","bee",
@@ -67,4 +68,29 @@ function checkSketch()
 function clearCanvas()
 {
     background("white");
+}
+
+function preload()
+{
+    classifier = ml5.imageClassifier('DoodleNet');
+}
+
+function classifyCanvas()
+{
+    classifier.classify(canvas, gotResult);
+}
+
+function gotResult(error, results)
+{
+    if(error)
+    {
+        console.error(error);
+    }
+    else
+    {
+        console.log(results);
+        drawnsketch = results[0].label;
+        document.getElementById("label").innerHTML = "your sketch: " + drawnsketch;
+        document.getElementById("confidence").innerHTML = "confidence: " + Math.round(results[0].confidence * 100) + "%";
+    }
 }
